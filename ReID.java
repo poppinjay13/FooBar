@@ -1,31 +1,36 @@
 public class ReID {
 
     public static String solution(int i) {
+        if (i < 0 || i > 10000)
+            return "Please provide a valid minion ID";
         int startIndex = i;
         int endIndex = startIndex + 5;
 
-        String primeNumbers = "";// initially empty
-        int x = 0;// loop var
-        int num = 0;// loop var
+        String primeString = "";// initially empty
+        int realNo = 0;// loop var for holding real numbers
+        int divisor = 0;// loop var for dividing real numbers 
 
         try {
-            for (x = 0; x <= 10000; x++) {
-                int counter = 0;
-                for (num = x; num >= 1; num--) {
-                    if (x % num == 0) {
-                        counter = counter + 1;
+            for (realNo = 0; realNo <= 10000; realNo++) {
+                int factors = 0;
+                for (divisor = realNo; divisor >= 1; divisor--) {
+                    if (realNo % divisor == 0) {
+                        //check number of factors
+                        factors = factors + 1;
                     }
                 }
-                if (counter == 2) {
+                if (factors == 2) {
                     // if the number is prime
-                    primeNumbers = primeNumbers + x;
-                    if (primeNumbers.length() >= endIndex)
+                    primeString = primeString + realNo;
+                    if (primeString.length() >= endIndex)
                         // if the lenght is greater than or equal to the endIndex
                         break;
                 }
             }
-            return primeNumbers.substring(startIndex, endIndex);
+            return primeString.substring(startIndex, endIndex);
         } catch (NumberFormatException ex) {
+            return "An error occurred assigning this minion a new ID";
+        } catch (Exception ex) {
             return "An error occurred assigning this minion a new ID";
         }
     }
